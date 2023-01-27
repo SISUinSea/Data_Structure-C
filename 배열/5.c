@@ -5,7 +5,6 @@ int isExist(int i, int j, int row, int column);
 
 int main(){
     int n, m;scanf("%d %d", &n, &m);
-    int row = n, column = m;
     int **arr = malloc(n*sizeof(int*));
     if(!arr) {
         printf("malloc error!\n");
@@ -27,7 +26,7 @@ int main(){
         i = start_i, j = start_j;
         while(1){
             arr[i++][j--] = count++;
-            if(!isExist(i,j,row, column)) break;
+            if(!isExist(i,j,n, m)) break;
         }
 
         if(start_j < m-1)
@@ -35,7 +34,7 @@ int main(){
         else // start_j가 벽에 부딪힘.
             start_i++;
         
-        if(!isExist(start_i, start_j, row, column)) break;
+        if(!isExist(start_i, start_j, n, m)) break;
 
     }
     
