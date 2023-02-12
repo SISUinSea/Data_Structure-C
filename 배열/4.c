@@ -5,13 +5,13 @@ int main(){
     int n, m;scanf("%d %d", &n, &m);
     int row = n, column = m;
     int i, j;
-    int **arr = malloc(n*sizeof(int*));
+    int **arr = (int **) malloc(n*sizeof(int*));
     if(!arr) {
         printf("malloc error\n");
         return -1;
     }
     for(i = 0; i<n;i++) {
-        *(arr+i) = malloc(m * sizeof(int));
+        *(arr+i) = (int *) malloc(m * sizeof(int));
         if(!arr[i]) {
             printf("malloc error\n");
             return -1;
@@ -23,7 +23,6 @@ int main(){
     int count = 1;
     i=0,j=0-1;
     int t;
-    int ti,tj;
     while (1)
     {
         switch (direction)
@@ -60,4 +59,9 @@ int main(){
         for(j = 0; j<column;j++) printf(" %d", arr[i][j]);
         printf("\n");
     }
+
+    for(i = 0 ;i <n; i++) free(arr[i]);
+    free(arr);
+
+    return 0;
 }

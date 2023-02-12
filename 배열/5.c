@@ -5,14 +5,14 @@ int isExist(int i, int j, int row, int column);
 
 int main(){
     int n, m;scanf("%d %d", &n, &m);
-    int **arr = malloc(n*sizeof(int*));
+    int **arr = (int **) malloc(n*sizeof(int*));
     if(!arr) {
         printf("malloc error!\n");
         return -1;
     }
     int i, j;
     for (i = 0; i<n;i++) {
-        *(arr+i) = malloc(m*sizeof(int));
+        *(arr+i) = (int *) malloc(m*sizeof(int));
         if(!arr[i]){
             printf("malloc error!\n");
             return -1;
@@ -45,6 +45,11 @@ int main(){
         for(j = 0;  j<m;j++) printf(" %d", arr[i][j]);
         printf("\n");
     }
+
+    for(i = 0; i<n; i++) free(arr[i]);
+    free(arr);
+
+    return 0;
 }
 int isExist(int i, int j, int row, int column){
     return i>=row||j>=column || i<0 || j<0 ? 0 : 1 ;
