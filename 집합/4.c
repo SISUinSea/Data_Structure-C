@@ -15,20 +15,12 @@ void addLast(Set *header, int element);
 void print(Set *set);
 Set *uni(Set *A, Set *B);
 Set *intersect(Set *A, Set *B);
+void freeList(Node *P);
 
 int main(){
     Set *A = getSet();
-    // addLast(A, 1);
-    // addLast(A, 2);
-    // addLast(A, 3);
-    // print(A);
     Set *B = getSet();
-    // addLast(B, 2);
-    // addLast(B, 3);
-    // addLast(B, 4);
-    // print(B);
 
-    // print(intersect(A, B));
     int n;scanf("%d", &n);
     for(int i = 0; i<n; i++){
         int element;scanf("%d", &element);
@@ -42,6 +34,8 @@ int main(){
     print(uni(A, B));
     print(intersect(A, B));
 
+    freeList(A);
+    freeList(B);
 }
 
 Node *getNode(int element){
@@ -127,6 +121,19 @@ Set *intersect(Set *A, Set *B){
     }
    
     return C;
+}
+
+void freeList(Node *P){
+    Node *prevNode = NULL;
+    Node *currentNode = NULL;
+
+    currentNode = P;
+    while(currentNode->next){
+        prevNode = currentNode;
+        currentNode = currentNode->next;
+        free(prevNode);
+    }
+    free(currentNode);
 }
 
 /*

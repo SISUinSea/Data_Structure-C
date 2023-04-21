@@ -12,6 +12,7 @@ void print(Node *L);
 int isMember(Node *B, int element);
 int isSubset(Node *A, Node *B);
 int subset(Node *A, Node *B);
+void freeList(Node *P);
 
 
 int main(){
@@ -32,6 +33,9 @@ int main(){
     }
 
     printf("%d\n", subset(A, B));
+
+    freeList(A);
+    freeList(B);
 }
 
 Node *getNode(int element){
@@ -95,6 +99,22 @@ int subset(Node *A, Node *B){
     }
     return a->element;
 }
+
+void freeList(Node *P){
+    Node *prevNode = NULL;
+    Node *currentNode = NULL;
+
+    currentNode = P;
+    if(!currentNode) return;
+
+    while(currentNode->next){
+        prevNode = currentNode;
+        currentNode = currentNode->next;
+        free(prevNode);
+    }
+    free(currentNode);
+}
+
 
 /*
 3
