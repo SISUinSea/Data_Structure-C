@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 typedef struct stack
 {
@@ -28,16 +29,50 @@ int main(){
    scanf("%d", &n);
    stack *stack = getStack(n);
 
-   push(stack, 'a');
-   push(stack, 'p');
-   duplicate(stack);
-   push(stack, 'l');
-   push(stack, 'e');
+   int numberOfCommands;
+   scanf("%d", &numberOfCommands);
+   getchar();
 
 
-   print(stack);
+   for (int i = 0; i < stack->len; i++){
+      stack->elements[i] = 0;
+   }
+   
+
+   char command[5+1];
+   for(int i = 0;i <numberOfCommands; i++){
+      scanf("%s", command);
+      getchar();
+      if(strcmp(command, "POP") == 0){
+         pop(stack);
+      } else if(strcmp(command, "PUSH") == 0){
+         char element;
+         scanf("%c", &element);
+         getchar();
+         push(stack, element);
+      } else if(strcmp(command, "PRINT") == 0){
+         print(stack);
+      } else if(strcmp(command, "UpR") == 0){
+         int rotateNumber;
+         scanf("%d", &rotateNumber);
+         getchar();
+         upRotate(stack, rotateNumber);
+      } else if(strcmp(command, "DownR") == 0){
+         int rotateNumber;
+         scanf("%d", &rotateNumber);
+         getchar();
+         downRotate(stack, rotateNumber);
+      } else if(strcmp(command, "PEEK") == 0){
+         peek(stack);
+      } else if(strcmp(command, "DUP")==0){
+         duplicate(stack);
+      }
+   }
 
    // free stack
+   free(stack->elements);
+
+   free(stack);
 }
 
 void stackFullException(){
@@ -94,6 +129,11 @@ void peek(stack *stack){
 
 
 void duplicate(stack *stack){
+
+   if(stack->t >= stack->len){
+      stackFullException();
+      return;
+   }
    char c;
    c = pop(stack);
    push(stack, c);
@@ -102,20 +142,53 @@ void duplicate(stack *stack){
 
 
 void upRotate(stack *stack, int n){
-   char last;
-   int i;
-   last = stack->elements[stack->t];
-   for(i = stack->t-1; i>= 0; i--){
-      stack->elements[i+1] = stack->elements[i];
+   if(n>stack->len){
+      return ;
    }
-   stack->elements[0] = last;
+   char *bus = (char *) calloc(n, sizeof(char));
+   if(!bus){
+      return ;
+   }
 
-   return ;
+   for(int i = 0; i<n; i++){
+      bus[i] = pop(stack);
+   }
+
+   push(stack, bus[0]);
+   for(int i = n-1; i>0; i--){
+      push(stack, bus[i]);
+   }
+
+   free(bus);
+
 }
 
 
+void downRotate(stack *stack, int n){
+   if(n>stack->len){
+      return ;
+   } 
+   char *bus = (char *) calloc(n, sizeof(char));
+   if(!bus){
+      return ;
+   }
+
+   for(int i = 0; i<n; i++){
+      bus[i] = pop(stack);
+   }
+
+   for(int i = n-2; i>=0 ; i--){
+      push(stack, bus[i]);
+   }
+   push(stack, bus[n-1]);
+
+   free(bus);
+}
+
+
+
 void print(stack *stack){
-   for(int i = 0; i<=stack->t; i++){
+   for(int i = stack->t; i>= 0; i--){
       printf("%c", stack->elements[i]);
    }
    printf("\n");

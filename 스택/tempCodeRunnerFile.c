@@ -1,0 +1,2 @@
+
+char pop(stack *s){
