@@ -29,7 +29,8 @@ stack* initStack(){
 void push(stack* s, char c); /* header will always pointing the top of the stack.*/
 char pop(stack *s);
 char peek(stack* s);
-void traverse(stack *s);
+void traverse(stack *s); /* not for the ps, just for checking the stack's inside. */
+void traverseForFree(stack *s);
 
 int openOrCloseOrNone(char c); /* open : 1, close : -1, none : 0 */
 int closeCharacterHandler(stack *stack, char c); /* if return value is -1, break program with printing 'Wrong_N'.*/
@@ -50,16 +51,26 @@ int main(){
     // puts(str);
 
     int counter = 0;/* counter will be used for counting open/close characters. */
-
     char *c = NULL;
     for(c = str; *c; c++){
         switch(openOrCloseOrNone(*c)){
             case 1:
+            case -1:
                 counter++;
+                break;
+            default:
+                break;
+        }
+    }
+    
+
+
+    for(c = str; *c; c++){
+        switch(openOrCloseOrNone(*c)){
+            case 1:
                 push(s, *c);
                 break;
             case -1:
-                counter++;
                 if(closeCharacterHandler(s, *c) == -1){
                     printf("Wrong_%d\n", counter);
                     return 0;
@@ -75,6 +86,9 @@ int main(){
     }else {
         printf("Wrong_%d\n", counter);
     }
+
+    traverseForFree(s);
+    free(s);
 }
 
 void push(stack* s, char c){
@@ -141,3 +155,13 @@ int closeCharacterHandler(stack *stack, char c){
     }
 }
 
+
+void traverseForFree(stack *s){
+    node *p = s->header->next;
+    node *bomb = NULL;
+    while(p){
+        bomb = p;
+        p = p->next;
+        free(bomb);
+    }
+}

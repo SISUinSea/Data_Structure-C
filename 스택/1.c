@@ -40,6 +40,7 @@ int main(){
    
 
    char command[5+1];
+   int rotateNumber;
    for(int i = 0;i <numberOfCommands; i++){
       scanf("%s", command);
       getchar();
@@ -53,12 +54,10 @@ int main(){
       } else if(strcmp(command, "PRINT") == 0){
          print(stack);
       } else if(strcmp(command, "UpR") == 0){
-         int rotateNumber;
          scanf("%d", &rotateNumber);
          getchar();
          upRotate(stack, rotateNumber);
       } else if(strcmp(command, "DownR") == 0){
-         int rotateNumber;
          scanf("%d", &rotateNumber);
          getchar();
          downRotate(stack, rotateNumber);
@@ -71,7 +70,6 @@ int main(){
 
    // free stack
    free(stack->elements);
-
    free(stack);
 }
 
@@ -130,9 +128,13 @@ void peek(stack *stack){
 
 void duplicate(stack *stack){
 
-   if(stack->t >= stack->len){
+   if(stack->t >= stack->len-1){
       stackFullException();
       return;
+   }
+   if(stack->t < 0) {
+      stackEmptyException();
+      return ;
    }
    char c;
    c = pop(stack);
@@ -142,7 +144,7 @@ void duplicate(stack *stack){
 
 
 void upRotate(stack *stack, int n){
-   if(n>stack->len){
+   if(n>stack->t+1){
       return ;
    }
    char *bus = (char *) calloc(n, sizeof(char));
@@ -165,7 +167,7 @@ void upRotate(stack *stack, int n){
 
 
 void downRotate(stack *stack, int n){
-   if(n>stack->len){
+   if(n>stack->t+1){
       return ;
    } 
    char *bus = (char *) calloc(n, sizeof(char));

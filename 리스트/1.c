@@ -31,15 +31,15 @@ int main(){
             char element;
             int check;
    for(int i = 0; i<n; i++){
+      // printf("%d starts\n", i);
       char command; scanf("%c", &command);
       switch(command){
          case 'A':
             scanf("%d %c", &r, &element);
-            getchar();
             if(list->len >= r-1){
                add(list, r, element);
             } else {
-               printf("invalid position!\n");
+               printf("invalid position\n");
             }
             break;
             
@@ -48,27 +48,28 @@ int main(){
             break;
          case 'D':
             scanf("%d", &r);
-            getchar();
             if(list->len >= r){
                delete(list, r);
             } else {
-               printf("invalid position!\n");
+               printf("invalid position\n");
             }
             break;
             
          case 'G':
             scanf("%d", &r);
-            getchar();
             if(list->len >= r){
                printf("%c\n", get(list, r));
             } else {
-               printf("invalid position!\n");
+               printf("invalid position\n");
             }
             break;
    
          default:
             break;
       }
+      getchar();
+
+      // printf("%d ends\n", i);
    }
 }
 

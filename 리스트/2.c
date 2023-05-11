@@ -21,17 +21,6 @@ void print(PNs* pns);
 int main(){
     PNs* pns1 = initPolyNs();
     PNs* pns2 = initPolyNs();
-    // //1 
-    // addPN(pns1, 5, 3);
-    // addPN(pns1, 3, 2);
-    // addPN(pns1, 3, 1);
-    // // print(pns1);
-    // //2
-    // addPN(pns2, 2, 6);
-    // addPN(pns2, 2, 3);
-    // addPN(pns2, 1, 0);
-    // // print(pns2);
-
     PNs* resultPNs;
 
     int n;scanf("%d", &n);
@@ -111,7 +100,9 @@ void print(PNs *pns){
         }
         p = p->next;
     }
-    if(p->coef != 0 && p->exp != 0){
+    if(p->coef != 0 
+    // && p->exp != 0
+    ){
         printf(" %d %d\n",p->coef, p->exp);
     }
 }
