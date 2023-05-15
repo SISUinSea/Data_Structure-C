@@ -10,10 +10,11 @@ typedef struct treeNode
 
 
 
+
 treeNode* insertNode(int data, treeNode* left, treeNode* right);
 
 
-void printNodeData(treeNode* targetNode);
+void printNodeData(treeNode* tree[], int nodeNumber);
 
 int main(){
     treeNode* F[8];
@@ -30,7 +31,9 @@ int main(){
     F[1 -1] = insertNode(20, F[2 -1], F[3 -1]);
 
 
-    
+
+    int nodeNumber; scanf("%d", &nodeNumber);
+    printNodeData(F, nodeNumber);
 
 
 
@@ -53,6 +56,15 @@ treeNode* insertNode(int data, treeNode* left, treeNode* right){
 
 
 
-void printNodeData(treeNode* targetNode){
+void printNodeData(treeNode* tree[], int nodeNumber){
+    if(nodeNumber>8 || nodeNumber<1) {
+        printf("-1\n");
+        return ;
+    }
+    treeNode* targetnode = tree[nodeNumber-1];
+
+    printf("%d ", targetnode->data);
+    if(targetnode->left!=NULL) printf("%d ", targetnode->left->data);
+    if(targetnode->right!=NULL) printf("%d ", targetnode->right->data);
 
 }

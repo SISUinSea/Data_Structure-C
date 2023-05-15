@@ -11,7 +11,7 @@ typedef struct node
 typedef struct stack 
 {
     node *header;
-    int size;
+    // int size;
 } stack;
 
 
@@ -94,7 +94,7 @@ node* getnode(char c){
 stack* initstack(){
     stack* s = (stack*) malloc(sizeof(stack));
     s->header = getnode(0);
-    s->size = 0;
+    // s->size = 0;
 
     return s;
 }

@@ -31,12 +31,11 @@ int main(){
 
     int a, b;
 
+        stack* s = initStack();
 
     //
     for(int i = 0; i<n; i++){
         gets(str);
-
-        stack* s = initStack();
 
         for(p = str; *p; p++){
             switch(characterHandler(*p)){
@@ -58,6 +57,9 @@ int main(){
         }
         printf("%d\n", pop(s));
     }
+
+    free(s->header);
+    free(s);
     
 }
 
